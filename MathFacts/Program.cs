@@ -14,6 +14,7 @@ namespace MathFacts
             int choice = 0;
             Addition addTable = new Addition();
             Multiplication timesTable = new Multiplication();
+            Division divisionTable = new Division();
             do
             {
                 MainAppTitle();
@@ -136,7 +137,66 @@ namespace MathFacts
                         }
                     } while (continueChoice == true);
                 }
-            } while (choice != 3);
+                if (choice == 3)
+                {
+                    bool continueChoice = true;
+                    int startNum = 0;
+                    int endNum = 0;
+                    do
+                    {
+                        divisionTable.DivisionTitle();
+                        try
+                        {
+                            Console.WriteLine("Enter your starting number");
+                            startNum = Int32.Parse(Console.ReadLine());
+                            Console.WriteLine("Enter your ending number");
+                            endNum = Int32.Parse(Console.ReadLine());
+                        }
+                        catch (FormatException)
+                        {
+                            Console.WriteLine("Please enter a valid number");
+                            Console.ReadLine();
+
+                        }
+                        finally
+                        {
+                            if (startNum > 0 && endNum <= 10)
+                            {
+                                divisionTable.DivisionTitle();
+                                Console.WriteLine("");
+                                Console.ForegroundColor = ConsoleColor.Yellow;
+                                Console.Write("Your division Table for {0} - {1}!", startNum, endNum);
+                                Console.WriteLine("");
+                                divisionTable.DivisionTable(startNum, endNum);
+
+                                Console.WriteLine("");
+                                try
+                                {
+                                    Console.ForegroundColor = ConsoleColor.Blue;
+                                    Console.WriteLine("Would you like more division facts [y/n]?");
+                                    Console.ForegroundColor = ConsoleColor.White;
+                                    string moreFacts = Console.ReadLine();
+                                    if (moreFacts == "y")
+                                    {
+                                        continueChoice = true;
+                                    }
+                                    else if (moreFacts == "n")
+                                    {
+                                        continueChoice = false;
+                                    }
+                                }
+                                catch (Exception)
+                                {
+
+                                    throw;
+                                }
+                            }
+                        }
+
+                    } while (continueChoice == true);
+
+                }
+            } while (choice != 4);
         }
         private static int MainMenu()
         {
@@ -148,7 +208,8 @@ namespace MathFacts
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("Option 1: Addition Facts");
             Console.WriteLine("Option 2: Multiplication Facts");
-            Console.WriteLine("Option 3: Leave Math Facts");
+            Console.WriteLine("Option 3: Division Facts");
+            Console.WriteLine("Option 4: Leave Math Facts");
             //TODO - fix the exception handling
             choice = Int32.Parse(Console.ReadLine());
             return choice;
